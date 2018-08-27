@@ -10,7 +10,7 @@ using Android.Runtime;
 using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
-using AndroidApp.Models;
+using ToDoListDLL;
 
 namespace AndroidApp
 {
@@ -18,6 +18,8 @@ namespace AndroidApp
     public class TaskTodoActivity : Activity
     {
         List<Tasks> tasksList = new List<Tasks>();
+
+      
        
        
         protected override void OnCreate(Bundle savedInstanceState)
@@ -36,43 +38,51 @@ namespace AndroidApp
 
             btn_add.Click += Btn_add_Click;
 
-        //    var swipeRefresh = FindViewById<SwipeRefreshLayout>(Resource.Id.swipeRefreshLayoutTasks);
+            //    var swipeRefresh = FindViewById<SwipeRefreshLayout>(Resource.Id.swipeRefreshLayoutTasks);
 
 
-           // swipeRefresh.Refresh += async (sender, e) =>
-           // {
+            // swipeRefresh.Refresh += async (sender, e) =>
+            // {
             //    swipeRefresh.Refreshing = true;
 
-                //var newArticles = await rssDownloader.Get(url);
-               // lv_tasks.Adapter = new TaskAdapter( newArticles,this);
+            //var newArticles = await rssDownloader.Get(url);
+            // lv_tasks.Adapter = new TaskAdapter( newArticles,this);
 
             //    swipeRefresh.Refreshing = false;
-         //   };
+            //   };
 
-            
-            try
-            {
-                tasksList.Add(new Tasks(Intent.Extras.GetString("addedtaskscontent")));
-            }
-            catch
-            {
+            TaskDownloader TaskDownloader = new TaskDownloader();
+          
 
-            }
+                 tasksList = TaskDownloader.GetAllTasks().ToList();
+                
+
+                //foreach(Tasks s in tall)
+                //{
+                //    tasksList.Add(s);
+                //}
+
+                // progressbar.Visibility = ViewStates.Gone;
+
+                var taskAdapter = new TaskAdapter(tasksList, this);
+                lv_tasks.Adapter = taskAdapter;
+                // tasksList.Add(new Tasks(Intent.Extras.GetString("addedtaskscontent")));
+         
 
 
-            tasksList.Add(new Tasks("hsdlhfklsdhkf"));
-            tasksList.Add(new Tasks("hsdlhfklsdhkf"));
-            tasksList.Add(new Tasks("hsdlhfklsdhkf"));
-            tasksList.Add(new Tasks("hsdlhfklsdhkf"));
-            tasksList.Add(new Tasks("hsdlhfklsdhkf"));
-            tasksList.Add(new Tasks("hsdlhfklsdhkf"));
-            tasksList.Add(new Tasks("hsdlhfklsdhkf"));
-            tasksList.Add(new Tasks("hsdlhfklsdhkf"));
-            tasksList.Add(new Tasks("hsdlhfklsdhkf"));
-            tasksList.Add(new Tasks("hsdlhfklsdhkf"));
+            //tasksList.Add(new Tasks("hsdlhfklsdhkf"));
+            //tasksList.Add(new Tasks("hsdlhfklsdhkf"));
+            //tasksList.Add(new Tasks("hsdlhfklsdhkf"));
+            //tasksList.Add(new Tasks("hsdlhfklsdhkf"));
+            //tasksList.Add(new Tasks("hsdlhfklsdhkf"));
+            //tasksList.Add(new Tasks("hsdlhfklsdhkf"));
+            //tasksList.Add(new Tasks("hsdlhfklsdhkf"));
+            //tasksList.Add(new Tasks("hsdlhfklsdhkf"));
+            //tasksList.Add(new Tasks("hsdlhfklsdhkf"));
+            //tasksList.Add(new Tasks("hsdlhfklsdhkf"));
 
-            var taskAdapter = new TaskAdapter( tasksList, this);
-            lv_tasks.Adapter = taskAdapter;
+           // var taskAdapter = new TaskAdapter( tasksList, this);
+            //lv_tasks.Adapter = taskAdapter;
 
 
             lv_tasks.ItemClick += (sender, e) =>
@@ -81,7 +91,7 @@ namespace AndroidApp
 
                 var intent = new Intent(this, typeof(DetailTaskActivity));
                 intent.PutExtra("TaskContent", TasksSelectionned.Note);
-                intent.PutExtra("TaskDeadline", TasksSelectionned.Deadline.ToLongDateString());
+                intent.PutExtra("TaskDeadline", TasksSelectionned.DeadLine.ToString());
 
                 StartActivity(intent);
             };

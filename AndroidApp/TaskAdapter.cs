@@ -9,11 +9,11 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using AndroidApp.Models;
+using ToDoListDLL;
 
 namespace AndroidApp
 {
-    class TaskAdapter : BaseAdapter<Models.Tasks>
+    class TaskAdapter : BaseAdapter<Tasks>
     {
         private List<Tasks> _data;
         private Android.App.Activity _activity;

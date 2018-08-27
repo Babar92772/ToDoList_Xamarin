@@ -9,7 +9,6 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using AndroidApp.Models;
 
 namespace AndroidApp
 {
@@ -52,6 +51,22 @@ namespace AndroidApp
             var intent = new Intent(this, typeof(TaskTodoActivity));
             intent.PutExtra("addedtaskscontent", contentTask.Text);
             intent.PutExtra("addedtasksdeadline", _dateDisplay.Text);
+
+            TaskDownloader TaskDownloader = new TaskDownloader();
+
+           
+            ToDoListDLL.Tasks t = new ToDoListDLL.Tasks();
+            t.Note = "lol";
+            t.IDUserCreator = 14786;
+            t.TaskState = "todo";
+            DateTime date = new DateTime(2011, 2, 19);
+            date.ToString("s");
+            t.CreateDate = date;
+           // t.DeadLine = DateTime.Now.ToUniversalTime();
+
+
+             TaskDownloader.AddTasksAsync(t);
+
 
             StartActivity(intent);
         }
