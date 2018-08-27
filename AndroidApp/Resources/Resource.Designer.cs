@@ -2441,14 +2441,14 @@ namespace AndroidApp
 			// aapt resource value: 0x7f0800a2
 			public const int buttonBackToMenuToDo = 2131230882;
 			
-			// aapt resource value: 0x7f08009a
-			public const int buttonChangeTask = 2131230874;
-			
 			// aapt resource value: 0x7f080096
 			public const int buttonDatePicker = 2131230870;
 			
 			// aapt resource value: 0x7f080099
 			public const int buttonDatePickerDetailTask = 2131230873;
+			
+			// aapt resource value: 0x7f08009a
+			public const int buttonEditDetailTask = 2131230874;
 			
 			// aapt resource value: 0x7f08009d
 			public const int buttonMenu1 = 2131230877;

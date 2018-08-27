@@ -25,7 +25,7 @@
         android:text="Change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonChangeTask" />
+        android:id="@+id/buttonEditDetailTask" />
     <Button
         android:text="Delete"
         android:layout_width="match_parent"

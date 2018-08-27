@@ -62,8 +62,7 @@ namespace AndroidApp
             DateTime date = new DateTime(2011, 2, 19);
             date.ToString("s");
             t.CreateDate = date;
-           // t.DeadLine = DateTime.Now.ToUniversalTime();
-
+            t.DeadLine = DateTime.Now;
 
              TaskDownloader.AddTasksAsync(t);
 

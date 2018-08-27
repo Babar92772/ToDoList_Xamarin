@@ -55,16 +55,18 @@ namespace AndroidApp
           
 
                  tasksList = TaskDownloader.GetAllTasks().ToList();
-                
+                 tasksList = TaskDownloader.GetAllTasks().ToList();
+                 tasksList = TaskDownloader.GetAllTasks().ToList();
 
-                //foreach(Tasks s in tall)
-                //{
-                //    tasksList.Add(s);
-                //}
 
-                // progressbar.Visibility = ViewStates.Gone;
+            //foreach(Tasks s in tall)
+            //{
+            //    tasksList.Add(s);
+            //}
 
-                var taskAdapter = new TaskAdapter(tasksList, this);
+            // progressbar.Visibility = ViewStates.Gone;
+
+            var taskAdapter = new TaskAdapter(tasksList, this);
                 lv_tasks.Adapter = taskAdapter;
                 // tasksList.Add(new Tasks(Intent.Extras.GetString("addedtaskscontent")));
          
@@ -92,6 +94,7 @@ namespace AndroidApp
                 var intent = new Intent(this, typeof(DetailTaskActivity));
                 intent.PutExtra("TaskContent", TasksSelectionned.Note);
                 intent.PutExtra("TaskDeadline", TasksSelectionned.DeadLine.ToString());
+                intent.PutExtra("TaskID", TasksSelectionned.ID.ToString());
 
                 StartActivity(intent);
             };
