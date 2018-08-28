@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using ToDoListDLL;
 
 namespace AndroidApp
 {
@@ -16,17 +17,28 @@ namespace AndroidApp
     public class DetailTaskActivity : Activity
     {
 
+        DateTime dl;
+
+        int id;
+
+        EditText taskdetailcontent;
+
         TextView taskdeadline;
+
+        ProgressBar pgsBar;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.ActivityDetailTask);
 
-            var taskdetailcontent = FindViewById<EditText>(Resource.Id.editTextTaskDetailTitle);
+            taskdetailcontent = FindViewById<EditText>(Resource.Id.editTextTaskDetailTitle);
 
             taskdetailcontent.Text = Intent.Extras.GetString("TaskContent");
-          //  taskdetailcontent.Text = Intent.Extras.GetString("TaskID");
+            //  taskdetailcontent.Text = Intent.Extras.GetString("TaskID");
+
+            pgsBar = FindViewById<ProgressBar>(Resource.Id.pBarDetails);
+            pgsBar.Visibility = ViewStates.Gone;
 
             var taskdeadline = FindViewById<TextView>(Resource.Id.buttonDatePickerDetailTask);
 
@@ -43,12 +55,30 @@ namespace AndroidApp
 
             btn_edit.Click += Btn_edit_Click;
 
+            taskdeadline.Text = Intent.Extras.GetString("TaskDeadline");
+
+            id = int.Parse(Intent.Extras.GetString("TaskID"));
+
+            dl = DateTime.Parse(Intent.Extras.GetString("TaskDeadline"));
+
             // Create your application here
         }
 
         private void Btn_edit_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+
+
+            pgsBar.Visibility = ViewStates.Visible;
+            TaskDownloader TaskDownloader = new TaskDownloader();
+           Tasks s =  TaskDownloader.GetTasks(id);
+            s.Note = taskdetailcontent.Text;
+            s.DeadLine = dl;
+            TaskDownloader.EditTaskAsync(s);
+
+            var intent = new Intent(this, typeof(TaskTodoActivity));
+            StartActivity(intent);
+
+
         }
 
         private void Btn_del_Click(object sender, EventArgs e)
@@ -63,9 +93,9 @@ namespace AndroidApp
 
         private void Datepicker_Click(object sender, EventArgs e)
         {
-            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime  dl)
             {
-                taskdeadline.Text = time.ToLongDateString();
+                taskdeadline.Text = dl.ToLongDateString();
             });
             frag.Show(FragmentManager, DatePickerFragment.TAG);
         }

@@ -32,6 +32,7 @@ namespace AndroidApp
 
         public override Dialog OnCreateDialog(Bundle savedInstanceState)
         {
+            
             DateTime currently = DateTime.Now;
             DatePickerDialog dialog = new DatePickerDialog(Activity,
                                                            this,

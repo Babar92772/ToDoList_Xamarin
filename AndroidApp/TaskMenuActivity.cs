@@ -15,6 +15,9 @@ namespace AndroidApp
     [Activity(Label = "TaskMenuActivity")]
     public class TaskMenuActivity : Activity
     {
+
+        ProgressBar pgsBar;
+        
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -31,11 +34,18 @@ namespace AndroidApp
             button3.Click += Button3_Click;
             button4.Click += Button4_Click;
 
+             pgsBar = FindViewById<ProgressBar>(Resource.Id.pBarMenu);
+            pgsBar.Visibility = ViewStates.Gone;
+
+
+
+            
             // Create your application here
         }
 
         private void Button4_Click(object sender, EventArgs e)
         {
+            pgsBar.Visibility = ViewStates.Visible;
             var intent = new Intent(this, typeof(AddTaskActivity));
 
 
@@ -44,6 +54,7 @@ namespace AndroidApp
 
         private void Button3_Click(object sender, EventArgs e)
         {
+            pgsBar.Visibility = ViewStates.Visible;
             var intent = new Intent(this, typeof(TaskMenuActivity));
 
 
@@ -52,6 +63,8 @@ namespace AndroidApp
 
         private void Button2_Click(object sender, EventArgs e)
         {
+
+            pgsBar.Visibility = ViewStates.Visible;
             var intent = new Intent(this, typeof(TaskMenuActivity));
 
 
@@ -60,12 +73,14 @@ namespace AndroidApp
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            
+            pgsBar.Visibility = ViewStates.Visible;
 
             var intent = new Intent(this, typeof(TaskTodoActivity));
-
+           
 
             StartActivity(intent);
+            //Finish();
+            //  pgsBar.Visibility = ViewStates.Gone;
         }
     }
 }

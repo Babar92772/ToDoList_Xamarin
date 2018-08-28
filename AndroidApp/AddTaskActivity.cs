@@ -17,6 +17,7 @@ namespace AndroidApp
     {
         TextView _dateDisplay;
         EditText contentTask;
+        ProgressBar pgsBar;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -34,7 +35,9 @@ namespace AndroidApp
             button1.Click += Button1_Click;
 
             contentTask = FindViewById<EditText>(Resource.Id.editTextTaskTitle);
-            
+
+            pgsBar = FindViewById<ProgressBar>(Resource.Id.pBarAddTask);
+            pgsBar.Visibility = ViewStates.Gone;
 
 
 
@@ -56,13 +59,14 @@ namespace AndroidApp
 
            
             ToDoListDLL.Tasks t = new ToDoListDLL.Tasks();
-            t.Note = "lol";
+            t.Note = contentTask.Text;
             t.IDUserCreator = 14786;
             t.TaskState = "todo";
             DateTime date = new DateTime(2011, 2, 19);
             date.ToString("s");
-            t.CreateDate = date;
-            t.DeadLine = DateTime.Now;
+            t.CreateDate = DateTime.Now;
+            t.DeadLine = DateTime.Parse(_dateDisplay.Text);
+           // t.DeadLine = _dateDisplay.Text;
 
              TaskDownloader.AddTasksAsync(t);
 

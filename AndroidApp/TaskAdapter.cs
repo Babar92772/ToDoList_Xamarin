@@ -33,6 +33,8 @@ namespace AndroidApp
             return 0;
         }
 
+
+
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             var tasks = _data[position];

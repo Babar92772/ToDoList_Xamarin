@@ -65,8 +65,10 @@
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaskAdapter.cs" />
+    <Compile Include="TaskDoneActivity.cs" />
     <Compile Include="TaskDownloader.cs" />
     <Compile Include="TaskMenuActivity.cs" />
+    <Compile Include="TaskOngoingActivity.cs" />
     <Compile Include="TaskTodoActivity.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -91,10 +91,16 @@ namespace AndroidApp
             {
                 Tasks TasksSelectionned = tasksList[e.Position];
 
+
+
+
                 var intent = new Intent(this, typeof(DetailTaskActivity));
+
+
                 intent.PutExtra("TaskContent", TasksSelectionned.Note);
                 intent.PutExtra("TaskDeadline", TasksSelectionned.DeadLine.ToString());
                 intent.PutExtra("TaskID", TasksSelectionned.ID.ToString());
+                intent.PutExtra("Task", TasksSelectionned.ID.ToString());
 
                 StartActivity(intent);
             };
@@ -115,6 +121,14 @@ namespace AndroidApp
         private void Btn_menu_Click(object sender, EventArgs e)
         {
 
+            var intent = new Intent(this, typeof(TaskMenuActivity));
+
+
+            StartActivity(intent);
+        }
+
+        public override void OnBackPressed()
+        {
             var intent = new Intent(this, typeof(TaskMenuActivity));
 
 

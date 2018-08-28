@@ -79,13 +79,6 @@ namespace AndroidApp
             {
              //   return false;
             }
-
-           
-
-  
-  
-          
-
           
         }
 
@@ -108,7 +101,7 @@ namespace AndroidApp
 
 
 
-            int fdfdgdfg = 4654;
+          
             //HttpRequestMessage request = new HttpRequestMessage
             //{
             //    Content  = new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json"),
@@ -131,12 +124,84 @@ namespace AndroidApp
                 //   return false;
             }
 
+        }
+
+
+        static public Users GetCurrentUserAsync(string id, string pwd)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://todolistwebapi20180823030718.azurewebsites.net/");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = client.GetAsync($"api/UserConnexion/Connect/{id}/{pwd}").Result;
+
+
+
+            if (response.IsSuccessStatusCode)
+            {
+
+               
+                Users user =  JsonConvert.DeserializeObject<Users>(response.Content.ReadAsStringAsync().Result);
+                if (user != null)
+                {
+                    return user as Users;
+                }
+            }
+            return null;
+        }
+
+        static public async void EditTaskAsync(Tasks tasks)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://todolistwebapi20180823030718.azurewebsites.net/");
+         
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+            var json = JsonConvert.SerializeObject(tasks);
+            var contentj = new StringContent(json, Encoding.UTF8, "application/json");
 
 
 
 
+            HttpResponseMessage response = await client.PutAsync("api/TaskApi/EDIT/%7Btask%7D", contentj);
+
+            int h = 54;
+
+          //  var response = client.PutAsJsonAsync("api/TaskApi/EDIT/%7Btask%7D", tasks);
+        }
+
+        static public Tasks GetTasks(int id)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://todolistwebapi20180823030718.azurewebsites.net/");
+            //client.DefaultRequestHeaders.Add("appkey", "myapp_key");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            string url = "api/TaskApi/" + id;
+
+            HttpResponseMessage response = client.GetAsync(url).Result;
 
 
+
+            if (response.IsSuccessStatusCode)
+            {
+                // var tasks = response.Content.ReadAsAsync<IEnumerable<Tasks>>().Result.ToList() ;
+
+                var result = JsonConvert.DeserializeObject<Tasks>(response.Content.ReadAsStringAsync().Result);
+
+
+
+
+                return result;
+                //grdEmployee.ItemsSource = employees;
+
+            }
+            else
+            {
+                string s = response.StatusCode + response.ReasonPhrase;
+            }
+
+            return null;
         }
     }
 }
