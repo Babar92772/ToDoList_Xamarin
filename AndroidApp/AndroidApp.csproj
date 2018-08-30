@@ -62,6 +62,8 @@
     <Compile Include="DatePickerFragment.cs" />
     <Compile Include="DetailTaskActivity.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="MyTaskDoneActivity.cs" />
+    <Compile Include="MyTaskOngoingActivity.cs" />
     <Compile Include="MyTaskTodoActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -150,6 +152,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\ActivityMyTaskTodo.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ActivityMyTaskOngoing.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ActivityMyTaskDone.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

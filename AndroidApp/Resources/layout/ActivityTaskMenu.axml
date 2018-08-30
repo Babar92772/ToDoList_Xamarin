@@ -4,6 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <Button
+        android:text="My Tasks Todo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonMenu5" />
+    <Button
+        android:text="My Tasks Ongoing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonMenu6" />
+    <Button
+        android:text="My Tasks Done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonMenu7" />
+    <Button
         android:text="See Todo Tasks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,11 +38,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/buttonMenu4" />
-    <Button
-        android:text="My Tasks Todo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonMenu5" />
     <ProgressBar
         android:id="@+id/pBarMenu"
         android:layout_gravity="center"

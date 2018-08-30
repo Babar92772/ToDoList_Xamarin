@@ -33,12 +33,16 @@ namespace AndroidApp
             Button button3 = FindViewById<Button>(Resource.Id.buttonMenu3);
             Button button4 = FindViewById<Button>(Resource.Id.buttonMenu4);
             Button button5 = FindViewById<Button>(Resource.Id.buttonMenu5);
+            Button button6 = FindViewById<Button>(Resource.Id.buttonMenu6);
+            Button button7 = FindViewById<Button>(Resource.Id.buttonMenu7);
 
             button1.Click += Button1_Click;
             button2.Click += Button2_Click;
             button3.Click += Button3_Click;
             button4.Click += Button4_Click;
             button5.Click += Button5_Click;
+            button6.Click += Button6_Click;
+            button7.Click += Button7_Click;
 
              pgsBar = FindViewById<ProgressBar>(Resource.Id.pBarMenu);
             pgsBar.Visibility = ViewStates.Gone;
@@ -47,6 +51,26 @@ namespace AndroidApp
 
             
             // Create your application here
+        }
+
+        private void Button7_Click(object sender, EventArgs e)
+        {
+            pgsBar.Visibility = ViewStates.Visible;
+
+            var intent = new Intent(this, typeof(MyTaskDoneActivity));
+
+            intent.PutExtra("UserID", userid);
+            StartActivity(intent);
+        }
+
+        private void Button6_Click(object sender, EventArgs e)
+        {
+            pgsBar.Visibility = ViewStates.Visible;
+
+            var intent = new Intent(this, typeof(MyTaskOngoingActivity));
+
+            intent.PutExtra("UserID", userid);
+            StartActivity(intent);
         }
 
         private void Button5_Click(object sender, EventArgs e)

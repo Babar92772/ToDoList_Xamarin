@@ -370,5 +370,87 @@ namespace AndroidApp
 
             return new List<Tasks>();
         }
+
+        static public IEnumerable<Tasks> GetAllMyTasksOngoing(string id)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://todolistwebapi20180823030718.azurewebsites.net/");
+            //client.DefaultRequestHeaders.Add("appkey", "myapp_key");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage response = client.GetAsync("api/TaskApi/All").Result;
+
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                // var tasks = response.Content.ReadAsAsync<IEnumerable<Tasks>>().Result.ToList() ;
+
+                var result = JsonConvert.DeserializeObject<IEnumerable<Tasks>>(response.Content.ReadAsStringAsync().Result);
+
+
+                var todoresult = new List<Tasks>();
+
+                foreach (Tasks s in result)
+                {
+                    if ((s.IDUserCreator.ToString() == id) && (s.TaskState == "progress"))
+                    {
+                        todoresult.Add(s);
+                    }
+
+                }
+
+                return todoresult;
+                //grdEmployee.ItemsSource = employees;
+
+            }
+            else
+            {
+                string s = response.StatusCode + response.ReasonPhrase;
+            }
+
+            return new List<Tasks>();
+        }
+
+        static public IEnumerable<Tasks> GetAllMyTasksDone(string id)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://todolistwebapi20180823030718.azurewebsites.net/");
+            //client.DefaultRequestHeaders.Add("appkey", "myapp_key");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage response = client.GetAsync("api/TaskApi/All").Result;
+
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                // var tasks = response.Content.ReadAsAsync<IEnumerable<Tasks>>().Result.ToList() ;
+
+                var result = JsonConvert.DeserializeObject<IEnumerable<Tasks>>(response.Content.ReadAsStringAsync().Result);
+
+
+                var todoresult = new List<Tasks>();
+
+                foreach (Tasks s in result)
+                {
+                    if ((s.IDUserCreator.ToString() == id) && (s.TaskState == "done"))
+                    {
+                        todoresult.Add(s);
+                    }
+
+                }
+
+                return todoresult;
+                //grdEmployee.ItemsSource = employees;
+
+            }
+            else
+            {
+                string s = response.StatusCode + response.ReasonPhrase;
+            }
+
+            return new List<Tasks>();
+        }
     }
 }
