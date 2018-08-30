@@ -2,9 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:minWidth="25px"
-    android:minHeight="25px">
+    android:layout_height="match_parent">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
@@ -16,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="50px"
-            android:id="@+id/listViewTaskOngoing" />
+            android:id="@+id/listViewMyTaskTodo" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -29,11 +27,11 @@
             android:text="Back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/buttonBackToMenuOngoing" />
+            android:id="@+id/buttonBackToMenuMyTaskToDo" />
         <Button
             android:text="Add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/buttonOngoingToAdd" />
+            android:id="@+id/buttonMyTaskToDoToAdd" />
     </LinearLayout>
 </LinearLayout>

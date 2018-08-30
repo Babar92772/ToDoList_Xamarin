@@ -9,12 +9,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/buttonMenu1" />
     <Button
-        android:text="See Ongoing Tasks"
+        android:text="See Done Tasks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/buttonMenu2" />
     <Button
-        android:text="See done Tasks"
+        android:text="See Ongoing Tasks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/buttonMenu3" />
@@ -23,6 +23,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/buttonMenu4" />
+    <Button
+        android:text="My Tasks Todo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonMenu5" />
     <ProgressBar
         android:id="@+id/pBarMenu"
         android:layout_gravity="center"

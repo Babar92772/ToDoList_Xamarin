@@ -19,14 +19,16 @@ namespace AndroidApp
     {
         List<Tasks> tasksList = new List<Tasks>();
 
-      
-       
-       
+        string userid;
+        string taskstate = "todo";
+
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.ActivityTaskTodo);
+            userid = Intent.Extras.GetString("UserID");
 
             var lv_tasks = FindViewById<ListView>(Resource.Id.listViewTaskTodo);
 
@@ -54,9 +56,8 @@ namespace AndroidApp
             TaskDownloader TaskDownloader = new TaskDownloader();
           
 
-                 tasksList = TaskDownloader.GetAllTasks().ToList();
-                 tasksList = TaskDownloader.GetAllTasks().ToList();
-                 tasksList = TaskDownloader.GetAllTasks().ToList();
+                 tasksList = TaskDownloader.GetTodoAllTasks().ToList();
+               
 
 
             //foreach(Tasks s in tall)
@@ -101,6 +102,8 @@ namespace AndroidApp
                 intent.PutExtra("TaskDeadline", TasksSelectionned.DeadLine.ToString());
                 intent.PutExtra("TaskID", TasksSelectionned.ID.ToString());
                 intent.PutExtra("Task", TasksSelectionned.ID.ToString());
+                intent.PutExtra("UserID", userid);
+                intent.PutExtra("TaskState", taskstate);
 
                 StartActivity(intent);
             };
@@ -113,7 +116,8 @@ namespace AndroidApp
         {
 
             var intent = new Intent(this, typeof(AddTaskActivity));
-
+             intent.PutExtra("UserID", userid);
+            intent.PutExtra("TaskState", taskstate);
 
             StartActivity(intent);
         }
@@ -122,15 +126,15 @@ namespace AndroidApp
         {
 
             var intent = new Intent(this, typeof(TaskMenuActivity));
-
-
+            intent.PutExtra("UserID", userid);
+            intent.PutExtra("TaskState", taskstate);
             StartActivity(intent);
         }
 
         public override void OnBackPressed()
         {
             var intent = new Intent(this, typeof(TaskMenuActivity));
-
+            intent.PutExtra("UserID", userid);
 
             StartActivity(intent);
         }

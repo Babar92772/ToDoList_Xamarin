@@ -13,39 +13,37 @@ using ToDoListDLL;
 
 namespace AndroidApp
 {
-    [Activity(Label = "TaskOngoingActivity")]
-    public class TaskOngoingActivity : Activity
+    [Activity(Label = "MyTaskTodoActivity")]
+    public class MyTaskTodoActivity : Activity
     {
 
         List<Tasks> tasksList = new List<Tasks>();
-        string userid;
 
-        string taskstate="progress";
+        string userid;
+        string taskstate = "todo";
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-
-            SetContentView(Resource.Layout.ActivityTaskOngoing);
+            SetContentView(Resource.Layout.ActivityMyTaskTodo);
 
             userid = Intent.Extras.GetString("UserID");
 
-            var lv_tasks = FindViewById<ListView>(Resource.Id.listViewTaskOngoing);
+            var lv_tasks = FindViewById<ListView>(Resource.Id.listViewMyTaskTodo);
 
-            var btn_menu = FindViewById<Button>(Resource.Id.buttonBackToMenuOngoing);
+            var btn_menu = FindViewById<Button>(Resource.Id.buttonBackToMenuMyTaskToDo);
 
-            var btn_add = FindViewById<Button>(Resource.Id.buttonOngoingToAdd);
+            var btn_add = FindViewById<Button>(Resource.Id.buttonMyTaskToDoToAdd);
 
             btn_menu.Click += Btn_menu_Click;
 
             btn_add.Click += Btn_add_Click;
 
-
             TaskDownloader TaskDownloader = new TaskDownloader();
 
 
-            tasksList = TaskDownloader.GetOngoingAllTasks().ToList();
+            tasksList = TaskDownloader.GetAllMyTasks(Intent.Extras.GetString("UserID")).ToList();
 
             var taskAdapter = new TaskAdapter(tasksList, this);
             lv_tasks.Adapter = taskAdapter;
@@ -71,8 +69,8 @@ namespace AndroidApp
                 StartActivity(intent);
             };
 
+            // Create your application here
         }
-
 
 
         private void Btn_add_Click(object sender, EventArgs e)
@@ -91,7 +89,6 @@ namespace AndroidApp
             var intent = new Intent(this, typeof(TaskMenuActivity));
             intent.PutExtra("UserID", userid);
             intent.PutExtra("TaskState", taskstate);
-
             StartActivity(intent);
         }
 
@@ -102,13 +99,5 @@ namespace AndroidApp
 
             StartActivity(intent);
         }
-
-
-
-
-
-
-
-
     }
 }

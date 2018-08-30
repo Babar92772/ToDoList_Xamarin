@@ -165,7 +165,7 @@ namespace AndroidApp
 
             HttpResponseMessage response = await client.PutAsync("api/TaskApi/EDIT/%7Btask%7D", contentj);
 
-            int h = 54;
+           
 
           //  var response = client.PutAsJsonAsync("api/TaskApi/EDIT/%7Btask%7D", tasks);
         }
@@ -202,6 +202,173 @@ namespace AndroidApp
             }
 
             return null;
+        }
+
+
+
+        static public IEnumerable<Tasks> GetTodoAllTasks()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://todolistwebapi20180823030718.azurewebsites.net/");
+            //client.DefaultRequestHeaders.Add("appkey", "myapp_key");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage response = client.GetAsync("api/TaskApi/All").Result;
+
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                // var tasks = response.Content.ReadAsAsync<IEnumerable<Tasks>>().Result.ToList() ;
+
+                var result = JsonConvert.DeserializeObject<IEnumerable<Tasks>>(response.Content.ReadAsStringAsync().Result);
+
+
+                var todoresult = new List<Tasks>();
+
+                foreach( Tasks s in result)
+                {
+                    if(s.TaskState=="todo")
+                    {
+                        todoresult.Add(s);
+                    }
+                    
+                }
+
+                return todoresult;
+                //grdEmployee.ItemsSource = employees;
+
+            }
+            else
+            {
+                string s = response.StatusCode + response.ReasonPhrase;
+            }
+
+            return new List<Tasks>();
+        }
+
+
+        static public IEnumerable<Tasks> GetOngoingAllTasks()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://todolistwebapi20180823030718.azurewebsites.net/");
+            //client.DefaultRequestHeaders.Add("appkey", "myapp_key");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage response = client.GetAsync("api/TaskApi/All").Result;
+
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                // var tasks = response.Content.ReadAsAsync<IEnumerable<Tasks>>().Result.ToList() ;
+
+                var result = JsonConvert.DeserializeObject<IEnumerable<Tasks>>(response.Content.ReadAsStringAsync().Result);
+
+
+                var todoresult = new List<Tasks>();
+
+                foreach (Tasks s in result)
+                {
+                    if (s.TaskState == "progress")
+                    {
+                        todoresult.Add(s);
+                    }
+
+                }
+
+                return todoresult;
+                //grdEmployee.ItemsSource = employees;
+
+            }
+            else
+            {
+                string s = response.StatusCode + response.ReasonPhrase;
+            }
+
+            return new List<Tasks>();
+        }
+
+        static public IEnumerable<Tasks> GetDoneAllTasks()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://todolistwebapi20180823030718.azurewebsites.net/");
+            //client.DefaultRequestHeaders.Add("appkey", "myapp_key");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage response = client.GetAsync("api/TaskApi/All").Result;
+
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                // var tasks = response.Content.ReadAsAsync<IEnumerable<Tasks>>().Result.ToList() ;
+
+                var result = JsonConvert.DeserializeObject<IEnumerable<Tasks>>(response.Content.ReadAsStringAsync().Result);
+
+
+                var todoresult = new List<Tasks>();
+
+                foreach (Tasks s in result)
+                {
+                    if (s.TaskState == "done")
+                    {
+                        todoresult.Add(s);
+                    }
+
+                }
+
+                return todoresult;
+                //grdEmployee.ItemsSource = employees;
+
+            }
+            else
+            {
+                string s = response.StatusCode + response.ReasonPhrase;
+            }
+
+            return new List<Tasks>();
+        }
+
+        static public IEnumerable<Tasks> GetAllMyTasks(string id)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://todolistwebapi20180823030718.azurewebsites.net/");
+            //client.DefaultRequestHeaders.Add("appkey", "myapp_key");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage response = client.GetAsync("api/TaskApi/All").Result;
+
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                // var tasks = response.Content.ReadAsAsync<IEnumerable<Tasks>>().Result.ToList() ;
+
+                var result = JsonConvert.DeserializeObject<IEnumerable<Tasks>>(response.Content.ReadAsStringAsync().Result);
+
+
+                var todoresult = new List<Tasks>();
+
+                foreach (Tasks s in result)
+                {
+                    if ((s.IDUserCreator.ToString() == id) &&(s.TaskState=="todo"))
+                    {
+                        todoresult.Add(s);
+                    }
+
+                }
+
+                return todoresult;
+                //grdEmployee.ItemsSource = employees;
+
+            }
+            else
+            {
+                string s = response.StatusCode + response.ReasonPhrase;
+            }
+
+            return new List<Tasks>();
         }
     }
 }

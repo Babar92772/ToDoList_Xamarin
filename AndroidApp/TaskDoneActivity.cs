@@ -9,19 +9,93 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using ToDoListDLL;
 
 namespace AndroidApp
 {
     [Activity(Label = "TaskDoneActivity")]
     public class TaskDoneActivity : Activity
     {
+        List<Tasks> tasksList = new List<Tasks>();
+        string userid;
+        string taskstate = "done";
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.ActivityTaskDone);
 
-            // Create your application here
+            userid = Intent.Extras.GetString("UserID");
+
+            var lv_tasks = FindViewById<ListView>(Resource.Id.listViewTaskDone);
+
+            var btn_menu = FindViewById<Button>(Resource.Id.buttonBackToMenuDone);
+
+            var btn_add = FindViewById<Button>(Resource.Id.buttonDoneToAdd);
+
+            btn_menu.Click += Btn_menu_Click;
+
+            btn_add.Click += Btn_add_Click;
+
+            TaskDownloader TaskDownloader = new TaskDownloader();
+
+
+            tasksList = TaskDownloader.GetDoneAllTasks().ToList();
+
+
+            var taskAdapter = new TaskAdapter(tasksList, this);
+            lv_tasks.Adapter = taskAdapter;
+
+
+
+            lv_tasks.ItemClick += (sender, e) =>
+            {
+                Tasks TasksSelectionned = tasksList[e.Position];
+
+
+
+
+                var intent = new Intent(this, typeof(DetailTaskActivity));
+
+
+                intent.PutExtra("TaskContent", TasksSelectionned.Note);
+                intent.PutExtra("TaskDeadline", TasksSelectionned.DeadLine.ToString());
+                intent.PutExtra("TaskID", TasksSelectionned.ID.ToString());
+                intent.PutExtra("Task", TasksSelectionned.ID.ToString());
+                intent.PutExtra("UserID", userid);
+                intent.PutExtra("TaskState",taskstate);
+
+                StartActivity(intent);
+            };
+        }
+
+
+        private void Btn_add_Click(object sender, EventArgs e)
+        {
+
+            var intent = new Intent(this, typeof(AddTaskActivity));
+            intent.PutExtra("UserID", userid);
+            intent.PutExtra("TaskState", taskstate);
+
+            StartActivity(intent);
+        }
+
+        private void Btn_menu_Click(object sender, EventArgs e)
+        {
+
+            var intent = new Intent(this, typeof(TaskMenuActivity));
+            intent.PutExtra("UserID", userid);
+
+            StartActivity(intent);
+        }
+
+        public override void OnBackPressed()
+        {
+            var intent = new Intent(this, typeof(TaskMenuActivity));
+            intent.PutExtra("UserID", userid);
+
+            StartActivity(intent);
         }
     }
 }
